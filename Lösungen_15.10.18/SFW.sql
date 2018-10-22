@@ -1,0 +1,14 @@
+SELECT name FROM teams;
+SELECT minute FROM tore WHERE id = 1;
+SELECT id FROM spiele WHERE spiele.team1_id = 1 OR spiele.team2_id = 1;
+SELECT COUNT(id) FROM tore WHERE minute > 90;
+SELECT name FROM spieler LIMIT 13;
+SELECT name FROM teams WHERE name LIKE '%e%';
+SELECT name FROM spieler WHERE NOT name LIKE '%a%';
+SELECT nummer FROM spieler WHERE nummer >= 10 AND nummer <= 30;
+SELECT name, nummer FROM spieler WHERE name LIKE '%a%' AND nummer < 10;
+SELECT minute FROM tore WHERE minute >= 10 AND minute <= 20;
+SELECT nummer, name FROM spieler WHERE nummer IS NULL;
+SELECT nummer, name FROM spieler ORDER BY nummer DESC LIMIT 10;
+SELECT DISTINCT spieler_id FROM tore;
+SELECT DISTINCT art FROM strafen;
