@@ -1,9 +1,7 @@
--- Lösungen für Aufgabe "Superleague"
-
 DROP TABLE IF EXISTS strafen;
 DROP TABLE IF EXISTS tore;
-DROP TABLE IF EXISTS spieler;
 DROP TABLE IF EXISTS spiele;
+DROP TABLE IF EXISTS spieler;
 DROP TABLE IF EXISTS teams;
 
 CREATE TABLE teams (
@@ -14,31 +12,35 @@ CREATE TABLE teams (
 CREATE TABLE spieler (
 	id SERIAL PRIMARY KEY,
 	name TEXT,
-	nummer INT,
+	nummer BIGINT UNSIGNED,
 	team_id BIGINT UNSIGNED,
-	foreign KEY (team_id) REFERENCES teams(id)
-);
-
-CREATE TABLE tore (
-	id SERIAL PRIMARY KEY,
-	minute INT,
-	erzielt BIGINT UNSIGNED,
-	foreign KEY (erzielt) REFERENCES spieler(id)
-);
-
-CREATE TABLE strafen (
-	id SERIAL PRIMARY KEY,
-	minute INT,
-	art TEXT,
-	begeht BIGINT UNSIGNED,
-	foreign KEY (begeht) REFERENCES spieler(id)
+	FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 CREATE TABLE spiele (
 	id SERIAL PRIMARY KEY,
-	datum date,
-	team1 BIGINT UNSIGNED,
-	team2 BIGINT UNSIGNED,
-	foreign KEY (team1) REFERENCES teams(id),
-	foreign KEY (team2) REFERENCES teams(id)
+	team1_id BIGINT UNSIGNED,
+	team2_id BIGINT UNSIGNED,
+	datum TEXT,
+	FOREIGN KEY (team1_id) REFERENCES teams(id),
+	FOREIGN KEY (team2_id) REFERENCES teams(id)
+);
+
+CREATE TABLE strafen (
+	id SERIAL PRIMARY KEY,
+	art TEXT,
+	minute BIGINT UNSIGNED,
+	spiel_id BIGINT UNSIGNED,
+	spieler_id BIGINT UNSIGNED,
+	FOREIGN KEY (spiel_id) REFERENCES spiele(id),
+	FOREIGN KEY (spieler_id) REFERENCES spieler(id)
+);
+
+CREATE TABLE tore (
+	id SERIAL PRIMARY KEY,
+	minute BIGINT UNSIGNED,
+	spiel_id BIGINT UNSIGNED,
+	spieler_id BIGINT UNSIGNED,
+	FOREIGN KEY (spiel_id) REFERENCES spiele(id),
+	FOREIGN KEY (spieler_id) REFERENCES spieler(id)
 );
